@@ -18,7 +18,7 @@ public class JFrame extends javax.swing.JFrame {
     protected String colour2Content;
     protected String numOfColours;
     protected Boolean innerInsulationContent;
-    protected Boolean outterReinforcement;
+    protected Boolean outterReinforcementContent;
     
     
     /**
@@ -363,12 +363,12 @@ public class JFrame extends javax.swing.JFrame {
         }
         
         if(reinforcementComboBox.getSelectedItem() == "Yes"){
-            outterReinforcement = true;
+            outterReinforcementContent = true;
         } else{
-            outterReinforcement = false;
+            outterReinforcementContent = false;
         }
         
-        System.out.println(outterReinforcement);
+        System.out.println(outterReinforcementContent);
     }//GEN-LAST:event_reinforcementComboBoxActionPerformed
 
     private void quantityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityTextFieldActionPerformed
@@ -399,23 +399,23 @@ public class JFrame extends javax.swing.JFrame {
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
         // ADD VALIDATION
         Pipe obj1;
-        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcement == null){
+        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
             obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
                 chemResistContent);
-        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcement == null){
+        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
             obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content);
-        } else if(innerInsulationContent == null && outterReinforcement == null){
+        } else if(innerInsulationContent == null && outterReinforcementContent == null){
             obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content);
-        } else if(outterReinforcement == null) {
+        } else if(outterReinforcementContent == null) {
             obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content, 
                 innerInsulationContent);
         } else {
             obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content, 
-                innerInsulationContent, outterReinforcement);
+                innerInsulationContent, outterReinforcementContent);
         }
         Cost obj2 = new Cost(); 
         System.out.println("Cost: " + obj2.calculateCost(obj1));
@@ -459,62 +459,7 @@ public class JFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_addToBasketButtonActionPerformed
-    
-    //setter and getter for costPerQubicInch
    
-    public double getDiameterContent()
-    {
-        return diameterContent;
-    }
-   
-    public double getLengthContent()
-    {
-        return lengthContent;
-    }
-    
-    public int getGradeContent()
-    {
-        return gradeContent;
-    }
-    
-    public double getQuantityContent()
-    {
-        return quantityContent;
-    }
-    
-    public Boolean getChemResistContent()
-    {
-        return chemResistContent;
-    }
-    
-    public String getColour1Content()
-    {
-        return colour1Content;
-    }
-    
-    public String getColour2Content()
-    {
-        return colour2Content;
-    }
-    
-    public String getNumOfColours()
-    {
-        return numOfColours;
-    }
-    
-    public Boolean getInnerInsulationContent()
-    {
-        return innerInsulationContent;
-    }
-    
-    public Boolean getOutterReinforcement()
-    {
-        return outterReinforcement;
-    }
-    
-    public void typeSelector(){
-        
-    }
     
     
     //cost()
