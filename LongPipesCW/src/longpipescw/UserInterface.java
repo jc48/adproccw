@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class UserInterface extends javax.swing.JFrame {
     //move array list later
-    protected ArrayList<Pipe> order = new ArrayList<Pipe>(); 
+    protected ArrayList<Object> order = new ArrayList<Object>();
     
     protected double diameterContent;
     protected double lengthContent;
@@ -467,6 +467,7 @@ public class UserInterface extends javax.swing.JFrame {
       
     private void addToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToBasketButtonActionPerformed
         // ADD VALIDATION
+        
         Pipe pipeObj;
         if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
             pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
@@ -494,15 +495,16 @@ public class UserInterface extends javax.swing.JFrame {
         System.out.println("Base cost: " + pipeObj.baseCost);
         System.out.println("Additional cost: " + pipeObj.additionalCost);
         System.out.println("Total cost: " + pipeObj.totalCost());
-        order.add(pipeObj);
-        System.out.println(order.get(0).quantity);
         
+        order.add(pipeObj);
         
         
         
     }//GEN-LAST:event_addToBasketButtonActionPerformed
-   
     
+    public ArrayList<Object> getList() {
+       return order;
+   }
     
     //cost()
     //output() -- For now ignore

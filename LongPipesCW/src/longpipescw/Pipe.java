@@ -131,7 +131,8 @@ abstract public class Pipe {
     }
     
     public double totalCost(){
-        totalCost = (baseCost + additionalCost) * quantity;
+        double calc = (baseCost + additionalCost) * quantity;
+        totalCost = (double) Math.round(calc * 100) / 100;
         return totalCost;
     }
     

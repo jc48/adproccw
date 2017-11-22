@@ -46,13 +46,14 @@ public class Invoice extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(174, 174, 174))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(jLabel1)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,8 +61,8 @@ public class Invoice extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -75,11 +76,18 @@ public class Invoice extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     public void populate(ArrayList order){
+        System.out.println(order.size());
         for(int i = 0; i < order.size(); i++){
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
-           invoiceOrderText.setText(invoiceOrderText.getText() + order.get(i) + "\n"); 
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Length of pipe: " + ((Pipe)order.get(i)).lengthOfPipe + " (meters)\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Diameter of pipe: " + ((Pipe)order.get(i)).diameterOfPipe + " (inches)\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Grade: " + ((Pipe)order.get(i)).grade + "\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Pipe)order.get(i)).chemResist + "\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Type5)(Type4)(Type3)order.get(i)).chemResist + "\n");
+           
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + ((Pipe)order.get(i)).quantity + "\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + ((Pipe)order.get(i)).totalCost + "\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "\n");
         }
-        
-        //System.out.println(order.get(0).baseCost);
     }
 }
