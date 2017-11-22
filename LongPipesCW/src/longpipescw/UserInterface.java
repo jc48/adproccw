@@ -4,11 +4,17 @@
  * and open the template in the editor.
  */
 package longpipescw;
+
+import java.util.*;
+
 /**
  *
  * @author conorfarrell
  */
-public class JFrame extends javax.swing.JFrame {
+public class UserInterface extends javax.swing.JFrame {
+    //move array list later
+    protected ArrayList<Pipe> order = new ArrayList<Pipe>(); 
+    
     protected double diameterContent;
     protected double lengthContent;
     protected int gradeContent;
@@ -24,7 +30,7 @@ public class JFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public JFrame() {
+    public UserInterface() {
         initComponents();
     }
 
@@ -125,6 +131,7 @@ public class JFrame extends javax.swing.JFrame {
 
         quantityLabel.setText("Quantity:");
 
+        quantityTextField.setText("1");
         quantityTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quantityTextFieldActionPerformed(evt);
@@ -397,42 +404,31 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lengthTextFieldActionPerformed
 
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
-        // ADD VALIDATION
-        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
-            Type1 pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
-                chemResistContent);
-            System.out.println(pipeObj.getPipeType());
-            System.out.println(pipeObj.baseCost);
-            System.out.println(pipeObj.additionalCost);
-        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
-            Type2 pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
-                chemResistContent, colour1Content);
-            System.out.println(pipeObj.getPipeType());
-            System.out.println(pipeObj.baseCost);
-            System.out.println(pipeObj.additionalCost);
-        } else if(innerInsulationContent == null && outterReinforcementContent == null){
-            Type3 pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
-                chemResistContent, colour1Content, colour2Content);
-            System.out.println(pipeObj.getPipeType());
-            System.out.println(pipeObj.baseCost);
-            System.out.println(pipeObj.additionalCost);
-        } else if(outterReinforcementContent == null) {
-            Type4 pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
-                chemResistContent, colour1Content, colour2Content, 
-                innerInsulationContent);
-            System.out.println(pipeObj.getPipeType());
-            System.out.println(pipeObj.baseCost);
-            System.out.println(pipeObj.additionalCost);
-        } else {
-            Type5 pipeObj = new Type5(diameterContent, lengthContent, gradeContent, 
-                chemResistContent, colour1Content, colour2Content, 
-                innerInsulationContent, outterReinforcementContent);
-            System.out.println(pipeObj.getPipeType());
-            System.out.println(pipeObj.baseCost);
-            System.out.println(pipeObj.additionalCost);
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-//        Cost costObj = new Cost(); 
-//        System.out.println("Cost: " + costObj.calculateCost(pipeObj));
+        //</editor-fold>
+
+        /* Create and display the form */
+        new Invoice(order).setVisible(true);
         
         
     }//GEN-LAST:event_completeOrderButtonActionPerformed
@@ -470,7 +466,39 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_colour1ComboBoxActionPerformed
       
     private void addToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToBasketButtonActionPerformed
-        // TODO add your handling code here:
+        // ADD VALIDATION
+        Pipe pipeObj;
+        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+            pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
+                chemResistContent);
+            //conso
+        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+            pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
+                chemResistContent, colour1Content);
+        } else if(innerInsulationContent == null && outterReinforcementContent == null){
+            pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
+                chemResistContent, colour1Content, colour2Content);
+            System.out.println(pipeObj.totalCost());
+        } else if(outterReinforcementContent == null) {
+            pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
+                chemResistContent, colour1Content, colour2Content, 
+                innerInsulationContent);
+        } else {
+            pipeObj = new Type5(diameterContent, lengthContent, gradeContent, 
+                chemResistContent, colour1Content, colour2Content, 
+                innerInsulationContent, outterReinforcementContent);
+        }
+        pipeObj.quantity = quantityContent;
+        System.out.println("Quant sent: " + pipeObj.quantity);
+        System.out.println(pipeObj.getPipeType());
+        System.out.println("Base cost: " + pipeObj.baseCost);
+        System.out.println("Additional cost: " + pipeObj.additionalCost);
+        System.out.println("Total cost: " + pipeObj.totalCost());
+        order.add(pipeObj);
+        System.out.println(order.get(0).quantity);
+        
+        
+        
         
     }//GEN-LAST:event_addToBasketButtonActionPerformed
    

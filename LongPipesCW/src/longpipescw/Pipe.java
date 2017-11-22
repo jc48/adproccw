@@ -15,8 +15,10 @@ abstract public class Pipe {
     protected double diameterOfPipe;
     protected double baseCost;
     protected double additionalCost;
+    protected double totalCost;
     protected int pipeType;
     protected int grade;
+    protected double quantity;
     protected double costPerQubicInch;
     protected Boolean chemResist;
     
@@ -46,6 +48,7 @@ abstract public class Pipe {
         }
         baseCost();
         additionalCost();
+        totalCost();
     }
     
     public double getLengthOfPipe(){
@@ -119,7 +122,6 @@ abstract public class Pipe {
         if(chemResist == true){
             additionalCost += baseCost * 0.14;
         }
-        System.out.println("Test: " + additionalCost);
         return additionalCost;
     }
     
@@ -127,6 +129,12 @@ abstract public class Pipe {
         baseCost = getVolumeOfPipe() * getCostPerQubicInch();
         return baseCost;
     }
+    
+    public double totalCost(){
+        totalCost = (baseCost + additionalCost) * quantity;
+        return totalCost;
+    }
+    
         
    
 }

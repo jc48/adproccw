@@ -5,13 +5,17 @@
  */
 package longpipescw;
 
+import java.util.*;
 /**
  *
  * @author conorfarrell
  */
-public class JFrameContent extends JFrame {
+public class UserInterfaceContent extends UserInterface {
     //setter and getter for costPerQubicInch
    
+    public ArrayList getOrderDetails(){
+        return order;
+    }
     public double getDiameterContent()
     {
         return diameterContent;
