@@ -18,6 +18,7 @@ public class Invoice extends javax.swing.JFrame {
     public Invoice(ArrayList order) {
         initComponents();
         populate(order);
+        setResizable(false);
     }
 
     /**
@@ -76,6 +77,7 @@ public class Invoice extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     public void populate(ArrayList order){
+        invoiceOrderText.setEditable(false);
         System.out.println(order.size());
         for(int i = 0; i < order.size(); i++){
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
@@ -83,7 +85,7 @@ public class Invoice extends javax.swing.JFrame {
            invoiceOrderText.setText(invoiceOrderText.getText() + "Diameter of pipe: " + ((Pipe)order.get(i)).diameterOfPipe + " (inches)\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Grade: " + ((Pipe)order.get(i)).grade + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Pipe)order.get(i)).chemResist + "\n");
-           invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + ((Pipe)order.get(i)).quantity + "\n");
+           invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + (int)((Pipe)order.get(i)).quantity + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + ((Pipe)order.get(i)).totalCost + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "\n");
         }

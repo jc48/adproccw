@@ -32,6 +32,12 @@ public class UserInterface extends javax.swing.JFrame {
      */
     public UserInterface() {
         initComponents();
+        
+        //DISABLE action buttons and window resize
+        setResizable(false);
+        //actionMethod();
+        completeOrderButton.setEnabled(false);
+        addToBasketButton.setEnabled(false);
     }
 
     /**
@@ -302,10 +308,10 @@ public class UserInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+   
     private void diameterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diameterTextFieldActionPerformed
         // TODO add your handling code here:
+        enableDisable();
         if(!diameterTextField.getText().equals("")){
             diameterLabel.setText("Diameter (inches): ✓");
         } else{
@@ -313,13 +319,12 @@ public class UserInterface extends javax.swing.JFrame {
         }
         //FIX having to press enter to intialise the textfield
         diameterContent = Double.parseDouble(diameterTextField.getText());
-        setFocusable(true);
         System.out.println(diameterContent);
-        
     }//GEN-LAST:event_diameterTextFieldActionPerformed
 
     private void pGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pGradeComboBoxActionPerformed
         // TODO add your handling code here:
+        enableDisable();
         if(pGradeComboBox.getSelectedItem() == "Choose:"){
             pGradeLabel.setText("Plastic grade: ");
         } else{
@@ -393,6 +398,7 @@ public class UserInterface extends javax.swing.JFrame {
 
     private void lengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lengthTextFieldActionPerformed
         // TODO add your handling code here:
+        enableDisable();
         if(!lengthTextField.getText().equals("")){
             lengthLabel.setText("Length (meters): ✓");
         } else {
@@ -429,8 +435,6 @@ public class UserInterface extends javax.swing.JFrame {
 
         /* Create and display the form */
         new Invoice(order).setVisible(true);
-        
-        
     }//GEN-LAST:event_completeOrderButtonActionPerformed
 
     private void cancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelOrderButtonActionPerformed
@@ -440,6 +444,7 @@ public class UserInterface extends javax.swing.JFrame {
 
     private void resistanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resistanceComboBoxActionPerformed
         // TODO add your handling code here:
+        enableDisable();
         if(resistanceComboBox.getSelectedItem() == "Choose:"){
             resistanceLabel.setText("Chemical Resistance: ");
         } else{
@@ -490,33 +495,17 @@ public class UserInterface extends javax.swing.JFrame {
                 innerInsulationContent, outterReinforcementContent);
         }
         pipeObj.quantity = quantityContent;
-        System.out.println("Quant sent: " + pipeObj.quantity);
-        System.out.println(pipeObj.getPipeType());
-        System.out.println("Base cost: " + pipeObj.baseCost);
-        System.out.println("Additional cost: " + pipeObj.additionalCost);
-        System.out.println("Total cost: " + pipeObj.totalCost());
+        pipeObj.getPipeType();
+        pipeObj.totalCost();
         
         order.add(pipeObj);
         
-        
-        
     }//GEN-LAST:event_addToBasketButtonActionPerformed
-    
-    public ArrayList<Object> getList() {
-       return order;
-   }
-    
-    //cost()
-    //output() -- For now ignore
-
-    //print out cost and pipe type
-    
     
     /**
      * @param args the command line arguments
      */
     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToBasketButton;
     private javax.swing.JScrollPane basket;
@@ -545,4 +534,18 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> resistanceComboBox;
     private javax.swing.JLabel resistanceLabel;
     // End of variables declaration//GEN-END:variables
+//    public void actionMethod(){
+//        diameterTextField.setFocusable(true);
+//    }
+   
+    public void enableDisable(){
+        if(!diameterTextField.getText().equals("") && !lengthTextField.getText().equals("")
+                && pGradeComboBox.getSelectedItem() != "Choose:" && resistanceComboBox.getSelectedItem() != "Choose:"){
+            completeOrderButton.setEnabled(true);
+            addToBasketButton.setEnabled(true);
+        } else{
+            completeOrderButton.setEnabled(false);
+            addToBasketButton.setEnabled(false);
+        }
+    }
 }
