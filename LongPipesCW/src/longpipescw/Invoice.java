@@ -83,8 +83,6 @@ public class Invoice extends javax.swing.JFrame {
            invoiceOrderText.setText(invoiceOrderText.getText() + "Diameter of pipe: " + ((Pipe)order.get(i)).diameterOfPipe + " (inches)\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Grade: " + ((Pipe)order.get(i)).grade + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Pipe)order.get(i)).chemResist + "\n");
-           invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Type5)(Type4)(Type3)order.get(i)).chemResist + "\n");
-           
            invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + ((Pipe)order.get(i)).quantity + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + ((Pipe)order.get(i)).totalCost + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "\n");
