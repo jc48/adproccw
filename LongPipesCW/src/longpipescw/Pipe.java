@@ -10,20 +10,17 @@ package longpipescw;
  * @author conorfarrell
  */
 //PUT BACK IN ABSTRACT
-public class Pipe {
+abstract public class Pipe {
     protected double lengthOfPipe;
     protected double diameterOfPipe;
+    protected double baseCost;
+    protected double additionalCost;
     protected int pipeType;
     protected int grade;
     protected double costPerQubicInch;
     protected Boolean chemResist;
-    private String colour1;
-    private String colour2;
-    private Boolean innerInsulation;
-    private Boolean outterReinforcement;
     
     public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist){
-        pipeType = 1;
         this.grade = grade;
         this.lengthOfPipe = lengthOfPipe;
         this.diameterOfPipe = diameterOfPipe;
@@ -38,50 +35,8 @@ public class Pipe {
             case 3 :
                 costPerQubicInch = 0.75;
                 break;
-            default :
-               System.out.println("USE FOR VALIDATION");
-        }
-    }
-    
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1){
-        pipeType = 2;
-        this.grade = grade;
-        this.lengthOfPipe = lengthOfPipe;
-        this.diameterOfPipe = diameterOfPipe;
-        this.chemResist = chemResist;
-        this.colour1 = colour1;
-        switch(this.grade) {
-            case 2 :
-               costPerQubicInch = 0.6;
-               break;
-            case 3 :
-                costPerQubicInch = 0.75;
-                break;
             case 4 :
-                costPerQubicInch = 0.8;
-                break;
-            default :
-               System.out.println("USE FOR VALIDATION");
-        }
-    }
-    
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String Colour2){
-        pipeType = 3;
-        this.grade = grade;
-        this.lengthOfPipe = lengthOfPipe;
-        this.diameterOfPipe = diameterOfPipe;
-        this.chemResist = chemResist;
-        this.colour1 = colour1;
-        this.colour2 = colour2;
-        switch(this.grade) {
-            case 2 :
-               costPerQubicInch = 0.6;
-               break;
-            case 3 :
-                costPerQubicInch = 0.75;
-                break;
-            case 4 :
-                costPerQubicInch = 0.8;
+                costPerQubicInch = 0.80;
                 break;
             case 5 :
                 costPerQubicInch = 0.95;
@@ -89,94 +44,8 @@ public class Pipe {
             default :
                System.out.println("USE FOR VALIDATION");
         }
-    }
-    
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String Colour2, Boolean
-                innerInsulation){
-        pipeType = 4;
-        this.grade = grade;
-        this.lengthOfPipe = lengthOfPipe;
-        this.diameterOfPipe = diameterOfPipe;
-        this.chemResist = chemResist;
-        this.colour1 = colour1;
-        this.colour2 = colour2;
-        this.innerInsulation = innerInsulation;
-        switch(this.grade) {
-            case 2 :
-               costPerQubicInch = 0.6;
-               break;
-            case 3 :
-                costPerQubicInch = 0.75;
-                break;
-            case 4 :
-                costPerQubicInch = 0.8;
-                break;
-            case 5 :
-                costPerQubicInch = 0.95;
-                break;
-            default :
-               System.out.println("USE FOR VALIDATION");
-        }
-    }
-    
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String Colour2, Boolean
-                innerInsulation, Boolean outterReinforcement){
-        pipeType = 5;
-        this.grade = grade;
-        this.lengthOfPipe = lengthOfPipe;
-        this.diameterOfPipe = diameterOfPipe;
-        this.chemResist = chemResist;
-        this.colour1 = colour1;
-        this.colour2 = colour2;
-        this.innerInsulation = innerInsulation;
-        this.outterReinforcement = outterReinforcement;
-        switch(this.grade) {
-            case 3 :
-                costPerQubicInch = 0.75;
-                break;
-            case 4 :
-                costPerQubicInch = 0.8;
-                break;
-            case 5 :
-                costPerQubicInch = 0.95;
-                break;
-            default :
-               System.out.println("USE FOR VALIDATION");
-        }
-    }
-    
-    
-    //setter and getter for colour1
-    public void setColour2(String colour2)
-    {
-        this.colour1 = colour2;
-    }
-   
-    public String getColour2()
-    {
-        return colour1;
-    }
-    
-    //setter and getter for innerInsulation
-    public void setInnerInsulation(Boolean innerInsulation)
-    {
-        this.innerInsulation = innerInsulation;
-    }
-   
-    public Boolean getInnerInsulation()
-    {
-        return innerInsulation;
-    }
-    
-    //setter and getter for innerInsulation
-    public void setOutterReinforcement(Boolean outterReinforcement)
-    {
-        this.outterReinforcement = outterReinforcement;
-    }
-   
-    public Boolean getOutterReinforcement()
-    {
-        return outterReinforcement;
+        baseCost();
+        additionalCost();
     }
     
     public double getLengthOfPipe(){
@@ -244,6 +113,19 @@ public class Pipe {
         double totalVolume = outervolumeOfPipe - innervolumeOfPipe;
         
         return totalVolume;
+    }
+    
+    public double additionalCost(){
+        if(chemResist == true){
+            additionalCost += baseCost * 0.14;
+        }
+        System.out.println("Test: " + additionalCost);
+        return additionalCost;
+    }
+    
+    public double baseCost(){
+        baseCost = getVolumeOfPipe() * getCostPerQubicInch();
+        return baseCost;
     }
         
    

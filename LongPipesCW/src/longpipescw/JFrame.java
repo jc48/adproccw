@@ -398,28 +398,42 @@ public class JFrame extends javax.swing.JFrame {
 
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
         // ADD VALIDATION
-        Pipe obj1;
         if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
-            obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
+            Type1 pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
                 chemResistContent);
+            System.out.println(pipeObj.getPipeType());
+            System.out.println(pipeObj.baseCost);
+            System.out.println(pipeObj.additionalCost);
         } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
-            obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
+            Type2 pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content);
+            System.out.println(pipeObj.getPipeType());
+            System.out.println(pipeObj.baseCost);
+            System.out.println(pipeObj.additionalCost);
         } else if(innerInsulationContent == null && outterReinforcementContent == null){
-            obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
+            Type3 pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content);
+            System.out.println(pipeObj.getPipeType());
+            System.out.println(pipeObj.baseCost);
+            System.out.println(pipeObj.additionalCost);
         } else if(outterReinforcementContent == null) {
-            obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
+            Type4 pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content, 
                 innerInsulationContent);
+            System.out.println(pipeObj.getPipeType());
+            System.out.println(pipeObj.baseCost);
+            System.out.println(pipeObj.additionalCost);
         } else {
-            obj1 = new Pipe(diameterContent, lengthContent, gradeContent, 
+            Type5 pipeObj = new Type5(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content, 
                 innerInsulationContent, outterReinforcementContent);
+            System.out.println(pipeObj.getPipeType());
+            System.out.println(pipeObj.baseCost);
+            System.out.println(pipeObj.additionalCost);
         }
-        Cost obj2 = new Cost(); 
-        System.out.println("Cost: " + obj2.calculateCost(obj1));
-        System.out.println(obj1.getPipeType());
+//        Cost costObj = new Cost(); 
+//        System.out.println("Cost: " + costObj.calculateCost(pipeObj));
+        
         
     }//GEN-LAST:event_completeOrderButtonActionPerformed
 
