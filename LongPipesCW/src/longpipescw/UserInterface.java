@@ -6,6 +6,8 @@
 package longpipescw;
 
 import java.util.*;
+import javax.swing.*;
+ 
 
 /**
  *
@@ -15,16 +17,16 @@ public class UserInterface extends javax.swing.JFrame {
     //move array list later
     protected ArrayList<Object> order = new ArrayList<Object>();
     
-    protected double diameterContent;
-    protected double lengthContent;
-    protected int gradeContent;
-    protected double quantityContent;
-    protected Boolean chemResistContent;
-    protected String colour1Content;
-    protected String colour2Content;
-    protected String numOfColours;
-    protected Boolean innerInsulationContent;
-    protected Boolean outterReinforcementContent;
+    protected double diameterContent = -1;
+    protected double lengthContent = -1;
+    protected int gradeContent = -1;
+    protected double quantityContent = -1;
+    protected Boolean chemResistContent = false;
+    protected String colour1Content = "-1";
+    protected String colour2Content = "-1";
+    protected String numOfColours = "-1";
+    protected Boolean innerInsulationContent = false;
+    protected Boolean outterReinforcementContent = false;
     
     
     /**
@@ -94,7 +96,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         pGradeLabel.setText("Plastic grade:");
 
-        pGradeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "1", "2", "3", "4", "5" }));
+        pGradeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "1", "2", "3", "4", "5" }));
         pGradeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pGradeComboBoxActionPerformed(evt);
@@ -103,7 +105,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         colour2Label.setText("Colour 2:");
 
-        insulationComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "Yes", "No" }));
+        insulationComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
         insulationComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insulationComboBoxActionPerformed(evt);
@@ -119,7 +121,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         insulationLabel.setText("Insulation:");
 
-        colour2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "Blue", "Green", "Purple", "Yellow" }));
+        colour2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None:", "Blue", "Green", "Purple", "Yellow" }));
         colour2ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colour2ComboBoxActionPerformed(evt);
@@ -128,7 +130,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         reinforcementLabel.setText("Reinforcement:");
 
-        reinforcementComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "Yes", "No" }));
+        reinforcementComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
         reinforcementComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reinforcementComboBoxActionPerformed(evt);
@@ -161,14 +163,14 @@ public class UserInterface extends javax.swing.JFrame {
 
         resistanceLabel.setText("Chemical Resistance:");
 
-        resistanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "Yes", "No" }));
+        resistanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
         resistanceComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resistanceComboBoxActionPerformed(evt);
             }
         });
 
-        colour1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose:", "Black", "White" }));
+        colour1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Black", "White" }));
         colour1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colour1ComboBoxActionPerformed(evt);
@@ -308,78 +310,91 @@ public class UserInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+         //FIX having to press enter to intialise the textfield******
     private void diameterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diameterTextFieldActionPerformed
-        // TODO add your handling code here:
         enableDisable();
         if(!diameterTextField.getText().equals("")){
             diameterLabel.setText("Diameter (inches): ✓");
         } else{
             diameterLabel.setText("Diameter (inches): ");
         }
-        //FIX having to press enter to intialise the textfield
-        diameterContent = Double.parseDouble(diameterTextField.getText());
+       
+        try {
+            diameterContent = Double.parseDouble(diameterTextField.getText());
+            if (diameterContent < 0.2 || diameterContent >6){
+                JOptionPane.showMessageDialog(null,
+                "Oders must be of atleast 0.2' pipe and less than 6'",
+                "Bad Quantity ",
+                JOptionPane.ERROR_MESSAGE);
+            }
+        }        
+        catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null,
+                "Numbers only please",
+                "Bad input ",
+                JOptionPane.ERROR_MESSAGE);
+            }
+        
+       
+        //testing
         System.out.println(diameterContent);
     }//GEN-LAST:event_diameterTextFieldActionPerformed
-
+//this looks wrong double casting?? na man
     private void pGradeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pGradeComboBoxActionPerformed
         // TODO add your handling code here:
         enableDisable();
-        if(pGradeComboBox.getSelectedItem() == "Choose:"){
+         String tempGradeContent ;
+        if(pGradeComboBox.getSelectedItem().equals("None")){
+            tempGradeContent = "-1";
             pGradeLabel.setText("Plastic grade: ");
         } else{
             pGradeLabel.setText("Plastic grade: ✓");
+             tempGradeContent = (String)pGradeComboBox.getSelectedItem();
         }
-        String tempGradeContent = (String)pGradeComboBox.getSelectedItem();
+        
         
         gradeContent = Integer.parseInt(tempGradeContent);
-        
+        //testing
         System.out.println(gradeContent);
     }//GEN-LAST:event_pGradeComboBoxActionPerformed
 
     private void insulationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insulationComboBoxActionPerformed
         // TODO add  handling code here:
-        if(insulationComboBox.getSelectedItem() == "Choose:"){
-            insulationLabel.setText("Insulation: ");
-        } else{
-            insulationLabel.setText("Insulation: ✓");
-        }
-        
-        if(insulationComboBox.getSelectedItem() == "Yes"){
-            innerInsulationContent = true;
-        } else{
+        if(insulationComboBox.getSelectedItem() == "No"){
             innerInsulationContent = false;
+            insulationLabel.setText("Insulation: ");
+        } else if(insulationComboBox.getSelectedItem() == "Yes"){
+             innerInsulationContent = true;
+            insulationLabel.setText("Insulation: ✓");
+                  
         }
-        
+//testing        
         System.out.println(innerInsulationContent);
     }//GEN-LAST:event_insulationComboBoxActionPerformed
 
     private void colour2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colour2ComboBoxActionPerformed
         // TODO add your handling code here:
-        if(colour2ComboBox.getSelectedItem() == "Choose:"){
-            colour2Content = null;
+        if(colour2ComboBox.getSelectedItem() == "None"){
+            colour2Content = "-1";
             colour2Label.setText("Colour 2: ");
         } else{
             colour2Label.setText("Colour 2: ✓");
         }
         colour2Content = (String)colour2ComboBox.getSelectedItem();
+        //testing
         System.out.println(colour2Content);
     }//GEN-LAST:event_colour2ComboBoxActionPerformed
 
     private void reinforcementComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reinforcementComboBoxActionPerformed
-        // TODO add your handling code here:
-        if(reinforcementComboBox.getSelectedItem() == "Choose:"){
+       
+        if(reinforcementComboBox.getSelectedItem() == "No:"){
+             outterReinforcementContent = false;
             reinforcementLabel.setText("Reinforcement: ");
-        } else{
+        } else if(reinforcementComboBox.getSelectedItem() == "Yes"){
+            outterReinforcementContent = true;
             reinforcementLabel.setText("Reinforcement: ✓");
         }
-        
-        if(reinforcementComboBox.getSelectedItem() == "Yes"){
-            outterReinforcementContent = true;
-        } else{
-            outterReinforcementContent = false;
-        }
-        
+                     
         System.out.println(outterReinforcementContent);
     }//GEN-LAST:event_reinforcementComboBoxActionPerformed
 
@@ -391,9 +406,24 @@ public class UserInterface extends javax.swing.JFrame {
             quantityLabel.setText("Quantity: ");
         }
         
+        try{
         quantityContent = Integer.parseInt(quantityTextField.getText());
-        
-        System.out.println(quantityContent);
+        //validation
+        if (quantityContent < 1 || quantityContent >100){
+            JOptionPane.showMessageDialog(null,
+            "Oders must be of atleast 1 pipe and less than 100",
+            "Bad Quantity ",
+            JOptionPane.ERROR_MESSAGE);
+        }
+        }
+        catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null,
+                "Numbers only please",
+                "Bad input ",
+                JOptionPane.ERROR_MESSAGE);
+            }
+       //testing 
+       System.out.println(quantityContent);
     }//GEN-LAST:event_quantityTextFieldActionPerformed
 
     private void lengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lengthTextFieldActionPerformed
@@ -404,8 +434,25 @@ public class UserInterface extends javax.swing.JFrame {
         } else {
             lengthLabel.setText("Length (meters): ");
         }
-        lengthContent = Double.parseDouble(lengthTextField.getText());
         
+        try{
+        lengthContent = Double.parseDouble(lengthTextField.getText());
+        //validation
+        if (lengthContent < 0.1 || lengthContent >6.0){
+        JOptionPane.showMessageDialog(null,
+        "pipes must be longer than 10cm and shorter than 6m",
+        "Bad pipe length ",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        }
+        
+        catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null,
+                "Numbers only please",
+                "Bad input ",
+                JOptionPane.ERROR_MESSAGE);
+            }
+        //testing
         System.out.println(lengthContent);
     }//GEN-LAST:event_lengthTextFieldActionPerformed
 
@@ -445,28 +492,27 @@ public class UserInterface extends javax.swing.JFrame {
     private void resistanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resistanceComboBoxActionPerformed
         // TODO add your handling code here:
         enableDisable();
-        if(resistanceComboBox.getSelectedItem() == "Choose:"){
+        if(resistanceComboBox.getSelectedItem() == "No:"){
+            chemResistContent = false;
             resistanceLabel.setText("Chemical Resistance: ");
-        } else{
+        } else if(resistanceComboBox.getSelectedItem() == "Yes"){
+             chemResistContent = true;
             resistanceLabel.setText("Chemical Resistance: ✓");
         }
-        if(resistanceComboBox.getSelectedItem() == "Yes"){
-            chemResistContent = true;
-        } else{
-            chemResistContent = false;
-        }
-        System.out.println(chemResistContent);
+        //testing
+           System.out.println(chemResistContent);
     }//GEN-LAST:event_resistanceComboBoxActionPerformed
 
     private void colour1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colour1ComboBoxActionPerformed
         // TODO add your handling code here:
-        if(colour1ComboBox.getSelectedItem() == "Choose:"){
-            colour1Content = null;
+        if(colour1ComboBox.getSelectedItem() == "None"){
+            colour1Content = "-1";
             colour1Label.setText("Colour 1: ");
         } else{
             colour1Label.setText("Colour 1: ✓");
         }
         colour1Content = (String)colour1ComboBox.getSelectedItem();
+        //testing
         System.out.println(colour1Content);
     }//GEN-LAST:event_colour1ComboBoxActionPerformed
       
@@ -474,18 +520,17 @@ public class UserInterface extends javax.swing.JFrame {
         // ADD VALIDATION
         
         Pipe pipeObj;
-        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+        if(colour1Content.equals("-1")  && colour2Content.equals("-1") && innerInsulationContent == false && outterReinforcementContent == false){
             pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
                 chemResistContent);
-            //conso
-        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+        } else if(colour2Content.equals("-1") && innerInsulationContent == false && outterReinforcementContent == false){
             pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content);
-        } else if(innerInsulationContent == null && outterReinforcementContent == null){
+        } else if(innerInsulationContent == false && outterReinforcementContent == false){
             pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content);
             System.out.println(pipeObj.totalCost());
-        } else if(outterReinforcementContent == null) {
+        } else if(outterReinforcementContent == false) {
             pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
                 chemResistContent, colour1Content, colour2Content, 
                 innerInsulationContent);
@@ -500,7 +545,67 @@ public class UserInterface extends javax.swing.JFrame {
         
         order.add(pipeObj);
     }//GEN-LAST:event_addToBasketButtonActionPerformed
-    
+   //*******************REMOVED NULLS*********** 
+//     private void addToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+//        // ADD VALIDATION
+//        
+//        Pipe pipeObj;
+//        if(colour1Content.equals("-1") && colour2Content.equals("-1") && innerInsulationContent == false && outterReinforcementContent == false){
+//            pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent);
+//        } else if(colour2Content.equals("-1") && innerInsulationContent == false && outterReinforcementContent == false){
+//            pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content);
+//        } else if(innerInsulationContent == false && outterReinforcementContent == false){
+//            pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content);
+//            System.out.println(pipeObj.totalCost());
+//        } else if(outterReinforcementContent == false) {
+//            pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content, 
+//                innerInsulationContent);
+//        } else {
+//            pipeObj = new Type5(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content, 
+//                innerInsulationContent, outterReinforcementContent);
+//        }
+//        pipeObj.quantity = quantityContent;
+//        pipeObj.getPipeType();
+//        pipeObj.totalCost();
+//        
+//        order.add(pipeObj);
+//    }                       
+    //******************ORIGINAL****************
+//    private void addToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+//        // ADD VALIDATION
+//        
+//        Pipe pipeObj;
+//        if(colour1Content == null && colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+//            pipeObj = new Type1(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent);
+//            //conso
+//        } else if(colour2Content == null && innerInsulationContent == null && outterReinforcementContent == null){
+//            pipeObj = new Type2(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content);
+//        } else if(innerInsulationContent == null && outterReinforcementContent == null){
+//            pipeObj = new Type3(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content);
+//            System.out.println(pipeObj.totalCost());
+//        } else if(outterReinforcementContent == null) {
+//            pipeObj = new Type4(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content, 
+//                innerInsulationContent);
+//        } else {
+//            pipeObj = new Type5(diameterContent, lengthContent, gradeContent, 
+//                chemResistContent, colour1Content, colour2Content, 
+//                innerInsulationContent, outterReinforcementContent);
+//        }
+//        pipeObj.quantity = quantityContent;
+//        pipeObj.getPipeType();
+//        pipeObj.totalCost();
+//        
+//        order.add(pipeObj);
+//    }                                          
     /**
      * @param args the command line arguments
      */
