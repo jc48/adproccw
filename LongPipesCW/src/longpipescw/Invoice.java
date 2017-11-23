@@ -78,8 +78,10 @@ public class Invoice extends javax.swing.JFrame {
     
     public void populate(ArrayList order){
         invoiceOrderText.setEditable(false);
+        double overallCost = 0;
         System.out.println(order.size());
         for(int i = 0; i < order.size(); i++){
+           overallCost += ((Pipe)order.get(i)).totalCost;
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Length of pipe: " + ((Pipe)order.get(i)).lengthOfPipe + " (meters)\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Diameter of pipe: " + ((Pipe)order.get(i)).diameterOfPipe + " (inches)\n");
@@ -89,5 +91,8 @@ public class Invoice extends javax.swing.JFrame {
            invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + ((Pipe)order.get(i)).totalCost + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "\n");
         }
+        overallCost = (double) Math.round(overallCost * 100) / 100;
+        invoiceOrderText.setText(invoiceOrderText.getText() + "Final bill\n");
+        invoiceOrderText.setText(invoiceOrderText.getText() + "Overall cost: £"+ overallCost + "\n");
     }
 }
