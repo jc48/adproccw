@@ -10,9 +10,9 @@ package longpipescw;
  * @author conorfarrell
  */
 public class Type4 extends Type3 {
-    protected Boolean innerInsulation;
     public Type4(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String colour2, Boolean innerInsulation){
         super(lengthOfPipe, diameterOfPipe, grade, chemResist, colour1, colour2);
+        this.innerInsulation = innerInsulation;
         super.pipeType = 4;
         super.additionalCost += baseCost * 0.13;
     }

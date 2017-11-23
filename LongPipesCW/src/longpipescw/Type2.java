@@ -10,7 +10,6 @@ package longpipescw;
  * @author conorfarrell
  */
 public class Type2 extends Pipe {
-    protected String colour1;
     public Type2(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1){
         super(lengthOfPipe, diameterOfPipe, grade, chemResist);
         super.pipeType = 2;

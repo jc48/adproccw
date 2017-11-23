@@ -30,40 +30,43 @@ public class Invoice extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        invoiceTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         invoiceOrderText = new javax.swing.JTextArea();
+        overallCostText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Invoice");
+        invoiceTitle.setText("Invoice");
 
         invoiceOrderText.setColumns(20);
         invoiceOrderText.setRows(5);
         jScrollPane1.setViewportView(invoiceOrderText);
+
+        overallCostText.setText("Overall Cost: £0.00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(jLabel1)))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                    .addComponent(overallCostText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(invoiceTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(invoiceTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(overallCostText, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -72,14 +75,16 @@ public class Invoice extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea invoiceOrderText;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel invoiceTitle;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel overallCostText;
     // End of variables declaration//GEN-END:variables
-    
     public void populate(ArrayList order){
+        invoiceTitle.setFont(invoiceTitle.getFont().deriveFont(18f));
+        invoiceTitle.setHorizontalAlignment(invoiceTitle.CENTER);
         invoiceOrderText.setEditable(false);
         double overallCost = 0;
-        System.out.println(order.size());
+        invoiceOrderText.setText("Order Breakdown\n\n");
         for(int i = 0; i < order.size(); i++){
            overallCost += ((Pipe)order.get(i)).totalCost;
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
@@ -88,11 +93,27 @@ public class Invoice extends javax.swing.JFrame {
            invoiceOrderText.setText(invoiceOrderText.getText() + "Grade: " + ((Pipe)order.get(i)).grade + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Chemical Resistance: " + ((Pipe)order.get(i)).chemResist + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + (int)((Pipe)order.get(i)).quantity + "\n");
+           
+//         Not sure this is the best way to do it, however, it works! Variables are all now stored in superclass! - Sounds wrong
+           if(((Pipe)order.get(i)).colour1 != null){
+               invoiceOrderText.setText(invoiceOrderText.getText() + "Colour 1: " + ((Pipe)order.get(i)).colour1 + "\n");
+           }
+           if(((Pipe)order.get(i)).colour2 != null){
+              invoiceOrderText.setText(invoiceOrderText.getText() + "Colour 2: " + ((Pipe)order.get(i)).colour2 + "\n"); 
+           }
+           if(((Pipe)order.get(i)).innerInsulation != null){
+               invoiceOrderText.setText(invoiceOrderText.getText() + "Inner Insulation: " + ((Pipe)order.get(i)).innerInsulation + "\n");
+           }
+           if(((Pipe)order.get(i)).outterReinforcement != null){
+               invoiceOrderText.setText(invoiceOrderText.getText() + "Outer Reinforcement: " + ((Pipe)order.get(i)).outterReinforcement + "\n");
+           }
+           
            invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + ((Pipe)order.get(i)).totalCost + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "\n");
         }
         overallCost = (double) Math.round(overallCost * 100) / 100;
-        invoiceOrderText.setText(invoiceOrderText.getText() + "Final bill\n");
-        invoiceOrderText.setText(invoiceOrderText.getText() + "Overall cost: £"+ overallCost + "\n");
+        overallCostText.setText("Overall cost: £" + overallCost + "\n");
+        overallCostText.setFont(overallCostText.getFont().deriveFont(18f));
+        overallCostText.setHorizontalAlignment(overallCostText.CENTER);
     }
 }

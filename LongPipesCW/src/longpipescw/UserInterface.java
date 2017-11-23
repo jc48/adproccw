@@ -499,7 +499,6 @@ public class UserInterface extends javax.swing.JFrame {
         pipeObj.totalCost();
         
         order.add(pipeObj);
-        
     }//GEN-LAST:event_addToBasketButtonActionPerformed
     
     /**

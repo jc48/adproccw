@@ -16,6 +16,19 @@ abstract public class Pipe {
     protected double baseCost;
     protected double additionalCost;
     protected double totalCost;
+    
+    //These variables are here for the time being. I have taken them from the sub
+    //classes and put them in order for us to access the variables for each object
+    //I feel that although each subclass may not use the variable it is better
+    //because it means we dont have duplicated variables in our subclass 1 and 2.
+    //This means we only have one set of variables if they are not initialised then
+    //they are set to null!
+    protected String colour1;
+    protected String colour2;
+    protected Boolean innerInsulation;
+    protected Boolean outterReinforcement;
+    //end testing
+    
     protected int pipeType;
     protected int grade;
     protected double quantity;
