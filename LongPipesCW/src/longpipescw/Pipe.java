@@ -23,6 +23,10 @@ abstract public class Pipe {
     //because it means we dont have duplicated variables in our subclass 1 and 2.
     //This means we only have one set of variables if they are not initialised then
     //they are set to null!
+    
+    // The issue here is that one of the rules of
+    //inheritance is that you dont inherit anything that is not used
+    // there must be a better way
     protected String colour1;
     protected String colour2;
     protected Boolean innerInsulation;

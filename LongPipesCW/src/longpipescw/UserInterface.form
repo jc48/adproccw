@@ -204,7 +204,7 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="6">
-            <StringItem index="0" value="Choose:"/>
+            <StringItem index="0" value="None"/>
             <StringItem index="1" value="1"/>
             <StringItem index="2" value="2"/>
             <StringItem index="3" value="3"/>
@@ -228,10 +228,9 @@
     <Component class="javax.swing.JComboBox" name="insulationComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Choose:"/>
+          <StringArray count="2">
+            <StringItem index="0" value="No"/>
             <StringItem index="1" value="Yes"/>
-            <StringItem index="2" value="No"/>
           </StringArray>
         </Property>
       </Properties>
@@ -259,7 +258,7 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
-            <StringItem index="0" value="Choose:"/>
+            <StringItem index="0" value="None:"/>
             <StringItem index="1" value="Blue"/>
             <StringItem index="2" value="Green"/>
             <StringItem index="3" value="Purple"/>
@@ -282,10 +281,9 @@
     <Component class="javax.swing.JComboBox" name="reinforcementComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Choose:"/>
+          <StringArray count="2">
+            <StringItem index="0" value="No"/>
             <StringItem index="1" value="Yes"/>
-            <StringItem index="2" value="No"/>
           </StringArray>
         </Property>
       </Properties>
@@ -338,10 +336,9 @@
     <Component class="javax.swing.JComboBox" name="resistanceComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Choose:"/>
+          <StringArray count="2">
+            <StringItem index="0" value="No"/>
             <StringItem index="1" value="Yes"/>
-            <StringItem index="2" value="No"/>
           </StringArray>
         </Property>
       </Properties>
@@ -356,7 +353,7 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Choose:"/>
+            <StringItem index="0" value="None"/>
             <StringItem index="1" value="Black"/>
             <StringItem index="2" value="White"/>
           </StringArray>

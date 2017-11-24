@@ -83,10 +83,12 @@ public class Invoice extends javax.swing.JFrame {
         invoiceTitle.setFont(invoiceTitle.getFont().deriveFont(18f));
         invoiceTitle.setHorizontalAlignment(invoiceTitle.CENTER);
         invoiceOrderText.setEditable(false);
-        double overallCost = 0;
+        double overallCost = 0; // move this to the constructor 
         invoiceOrderText.setText("Order Breakdown\n\n");
         for(int i = 0; i < order.size(); i++){
-           overallCost += ((Pipe)order.get(i)).totalCost;
+           overallCost += ((Pipe)order.get(i)).totalCost;  // isnt this casting ?
+           // also directly accessing variables outside of the class theya re iniated in is bad
+           //we need to use a get method if we want the variable 
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Length of pipe: " + ((Pipe)order.get(i)).lengthOfPipe + " (meters)\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Diameter of pipe: " + ((Pipe)order.get(i)).diameterOfPipe + " (inches)\n");
@@ -95,6 +97,7 @@ public class Invoice extends javax.swing.JFrame {
            invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + (int)((Pipe)order.get(i)).quantity + "\n");
            
 //         Not sure this is the best way to do it, however, it works! Variables are all now stored in superclass! - Sounds wrong
+
            if(((Pipe)order.get(i)).colour1 != null){
                invoiceOrderText.setText(invoiceOrderText.getText() + "Colour 1: " + ((Pipe)order.get(i)).colour1 + "\n");
            }
@@ -115,5 +118,7 @@ public class Invoice extends javax.swing.JFrame {
         overallCostText.setText("Overall cost: £" + overallCost + "\n");
         overallCostText.setFont(overallCostText.getFont().deriveFont(18f));
         overallCostText.setHorizontalAlignment(overallCostText.CENTER);
+        
+        
     }
 }
