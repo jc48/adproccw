@@ -10,19 +10,30 @@ package longpipescw;
  * @author conorfarrell
  */
 public class Type4 extends Type3 {
-    public Type4(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String colour2, Boolean innerInsulation){
-        super(lengthOfPipe, diameterOfPipe, grade, chemResist, colour1, colour2);
-        this.innerInsulation = innerInsulation;
-        super.pipeType = 4;
-        super.additionalCost += baseCost * 0.13;
+    private Boolean innerInsulation;
+    public Type4(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String colour2, double quantity){
+        //Obtain super class' information if Type4 is chosen
+        super(lengthOfPipe, diameterOfPipe, grade, chemResist, colour1, colour2, quantity);
+        super.pipeDetails();
+        this.innerInsulation = true;
+        //add on another additional cost to the previously assigned additional cost
+        addAdditionalCost(0.13);
     }
-    public void setInnerInsulation(Boolean innerInsulation)
-    {
+    
+    //setter and getter for InnerInsulation
+    public void setInnerInsulation(Boolean innerInsulation){
         this.innerInsulation = innerInsulation;
     }
    
-    public Boolean getInnerInsulation()
-    {
+    public Boolean getInnerInsulation(){
         return innerInsulation;
+    }
+    
+    //pipe details gets all the details from the super class and then adds our 
+    //additional parameter of colour1
+    public String pipeDetails(){
+        super.pipeDetails += "Inner Insulation: " + innerInsulation + "\n";
+        //returns our new varibale content back to the super class
+        return super.pipeDetails;
     }
 }

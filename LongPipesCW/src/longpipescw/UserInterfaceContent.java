@@ -11,9 +11,9 @@ import java.util.*;
  * @author conorfarrell
  */
 public class UserInterfaceContent extends UserInterface {
-    //setter and getter for costPerQubicInch
+    //Getters for all variables in YserInterface class
    
-    public ArrayList getOrderDetails(){
+    /*public ArrayList getOrderDetails(){
         return order;
     }
     public double getDiameterContent()
@@ -51,22 +51,13 @@ public class UserInterfaceContent extends UserInterface {
         return colour2Content;
     }
     
-    public String getNumOfColours()
-    {
-        return numOfColours;
-    }
-    
     public Boolean getInnerInsulationContent()
     {
         return innerInsulationContent;
     }
     
-    public Boolean getOutterReinforcement()
+    public Boolean getOuterReinforcement()
     {
-        return outterReinforcementContent;
-    }
-    
-    public void typeSelector(){
-        
-    }
+        return outerReinforcementContent;
+    }*/
 }

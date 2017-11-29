@@ -4,70 +4,43 @@
  * and open the template in the editor.
  */
 package longpipescw;
-
+import java.text.DecimalFormat;
 /**
  *
  * @author conorfarrell
  */
-//PUT BACK IN ABSTRACT
+//Abstract class of pipe
 abstract public class Pipe {
-    protected double lengthOfPipe;
-    protected double diameterOfPipe;
-    protected double baseCost;
-    protected double additionalCost;
-    protected double totalCost;
+    private double lengthOfPipe;
+    private double diameterOfPipe;
+    private double baseCost;
+    private double additionalCost;
+    private double totalCost;
+    protected String pipeDetails;
+    private int pipeType;
+    private int grade;
+    private double quantity;
+    private Boolean chemResist;
+    private final double[] gradeCost = {0.4, 0.6, 0.75, 0.8, 0.95};
+    private DecimalFormat df = new DecimalFormat("###.##");
     
-    //These variables are here for the time being. I have taken them from the sub
-    //classes and put them in order for us to access the variables for each object
-    //I feel that although each subclass may not use the variable it is better
-    //because it means we dont have duplicated variables in our subclass 1 and 2.
-    //This means we only have one set of variables if they are not initialised then
-    //they are set to null!
     
-    // The issue here is that one of the rules of
-    //inheritance is that you dont inherit anything that is not used
-    // there must be a better way
-    protected String colour1;
-    protected String colour2;
-    protected Boolean innerInsulation;
-    protected Boolean outterReinforcement;
-    //end testing
-    
-    protected int pipeType;
-    protected int grade;
-    protected double quantity;
-    protected double costPerQubicInch;
-    protected Boolean chemResist;
-    
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist){
+    //super class with parameters that each sub class all have in common
+    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, double quantity){
         this.grade = grade;
         this.lengthOfPipe = lengthOfPipe;
         this.diameterOfPipe = diameterOfPipe;
         this.chemResist = chemResist;
-        switch(this.grade) {
-            case 1 :
-               costPerQubicInch = 0.4;
-               break;
-            case 2 :
-                costPerQubicInch = 0.6;
-                break;
-            case 3 :
-                costPerQubicInch = 0.75;
-                break;
-            case 4 :
-                costPerQubicInch = 0.80;
-                break;
-            case 5 :
-                costPerQubicInch = 0.95;
-                break;
-            default :
-               System.out.println("USE FOR VALIDATION");
-        }
+        this.quantity = quantity;
+
+        //call the base cost method so that additional cost can be calculated
+        //then call total cost to retrieve the final total cost for that pipe
         baseCost();
         additionalCost();
         totalCost();
     }
     
+    //get methods
     public double getLengthOfPipe(){
         return lengthOfPipe;
     }
@@ -76,83 +49,98 @@ abstract public class Pipe {
         return diameterOfPipe;
     }
     
-    //getter for pipeType
+    public double getQuantity(){
+        return quantity;
+    }
    
     public int getPipeType()
     {
         return pipeType;
     }
     
-    //setter and getter for grade
-    public void setGrade(int grade)
-    {
-        this.grade = grade;
-    }
-   
     public int getGrade()
     {
         return grade;
     }
     
-    //setter and getter for costPerQubicInch
-    public void setCostPerQubicInch(double costPerQubicInch)
+    public double getBaseCost()
     {
-        this.costPerQubicInch = costPerQubicInch;
-    }
-   
-    public double getCostPerQubicInch()
-    {
-        return costPerQubicInch;
+        return baseCost;
     }
     
-    //setter and getter for costPerQubicInch
-    public void setChemResist(Boolean chemResist)
+    public double getAdditionalCost()
     {
-        this.chemResist = chemResist;
+        return additionalCost;
     }
-   
+    
     public boolean getChemResist()
     {
         return chemResist;
     }
     
-    public double getVolumeOfPipe(){
-        //conversion of meters to inches
-        double lengthPipeInches = lengthOfPipe / 0.0254;
-        
-        double outerRadius = diameterOfPipe / 2;
-        outerRadius = Math.pow(outerRadius,2);
-        double outervolumeOfPipe = (Math.PI * outerRadius) * lengthPipeInches;
-    
-        //get the inner volume pi * r^2 * height
-        double innerRadius = (diameterOfPipe / 2) * 0.9;
-        innerRadius = Math.pow(innerRadius,2);
-        double innervolumeOfPipe = (Math.PI * innerRadius) * lengthPipeInches; 
-    
-        //get the total volume of raw materials
-        double totalVolume = outervolumeOfPipe - innervolumeOfPipe;
-        
-        return totalVolume;
+    //setters
+    public void setChemResist(Boolean chemResist)
+    {
+        this.chemResist = chemResist;
     }
     
+    public void setGrade(int grade)
+    {
+        this.grade = grade;
+    }
+    
+    public void addAdditionalCost(double percent)
+    {
+        additionalCost += baseCost * percent;
+    }
+    //calculate the volume of the Pipe
+    public double circleArea(double circleDiameter)
+    {
+        return Math.PI * Math.pow(circleDiameter/2, 2);
+    }
+    
+    public double calculateVolumeOfPipe(){
+        //conversion of meters to inches
+        double lengthPipeInches = lengthOfPipe / 0.0254;
+
+        double totalVolume = circleArea(diameterOfPipe) - circleArea(diameterOfPipe*0.9);
+        return totalVolume* lengthPipeInches;
+        
+    }
+    
+    //get the additional cost that each pipe will add to the base cost
     public double additionalCost(){
+        //all pipes have chem resist in common so a first check will be required
+        System.out.println("This is infact used");
         if(chemResist == true){
             additionalCost += baseCost * 0.14;
         }
         return additionalCost;
     }
     
+    //base cost gets the volume of the pipe and times' it by the cost per qubic inch
     public double baseCost(){
-        baseCost = getVolumeOfPipe() * getCostPerQubicInch();
+        baseCost = calculateVolumeOfPipe() * gradeCost[grade - 1];
         return baseCost;
     }
     
+    //total cose will calculate off of the intitial base cost and the pipes additional
+    //cost, it will then time it by the users inputted quantity.
     public double totalCost(){
         double calc = (baseCost + additionalCost) * quantity;
-        totalCost = (double) Math.round(calc * 100) / 100;
+        //rounds to two decimal places
+        totalCost = Double.parseDouble(df.format(calc));
         return totalCost;
     }
     
+    //getting all the details of the pipe that each sub class have in common
+    public String pipeDetails(){
+        pipeDetails = "Diameter of pipe: " + Double.toString(diameterOfPipe) + " (Inches)\n"
+                + "Length of pipe: " + Double.toString(lengthOfPipe) + " (Meters)\n"
+                + "Grade: " + Integer.toString(grade) + "\n"
+                + "Chemical Resistance: " + Boolean.toString(chemResist) + "\n";
+        return pipeDetails;
+    }
         
    
 }
