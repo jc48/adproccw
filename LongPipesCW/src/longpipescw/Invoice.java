@@ -103,7 +103,7 @@ public class Invoice extends javax.swing.JFrame {
            
            //add all the order details
            invoiceOrderText.setText(invoiceOrderText.getText() + "Order #" + (i+1) + "\n");
-           invoiceOrderText.setText(invoiceOrderText.getText() + order.get(i).pipeDetails());
+           invoiceOrderText.setText(invoiceOrderText.getText() + order.get(i).getPipeDetails());
            invoiceOrderText.setText(invoiceOrderText.getText() + "Quantity: " + (int)order.get(i).getQuantity() + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "Total cost: £" + order.get(i).totalCost() + "\n");
            invoiceOrderText.setText(invoiceOrderText.getText() + "\n");

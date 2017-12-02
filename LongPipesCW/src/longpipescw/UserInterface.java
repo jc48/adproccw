@@ -17,11 +17,11 @@ import javax.swing.*;
  */
 public class UserInterface extends javax.swing.JFrame {
     //initialise all variables used before the interface is interacted with
-    protected ArrayList<Object> order = new ArrayList<Object>();
+    protected ArrayList<Pipe> order = new ArrayList<Pipe>();
     private double diameterContent = 0;
     private double lengthContent = 0;
     private int gradeContent = 0;
-    private double quantityContent = 0;
+    private int quantityContent = 1;
     private Boolean chemResistContent = false;
     private String colour1Content = "None";
     private String colour2Content = "None";
@@ -484,7 +484,8 @@ public class UserInterface extends javax.swing.JFrame {
         } else {
             // the error catching here
             System.out.println("error");
-            pipeObj = new Type1(1,1,1,false,1);
+            pipeObj = new Type5(diameterContent, lengthContent,
+                    gradeContent, chemResistContent, colour1Content, colour2Content, quantityContent);
             goodPipe = false;
             typeErrorFinder();
 
@@ -496,7 +497,6 @@ public class UserInterface extends javax.swing.JFrame {
             completeOrderButton.setEnabled(true);
             AddToBasketButtonOnOff();
         }
-
     }//GEN-LAST:event_addToBasketButtonActionPerformed
     
     private void diameterTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diameterTextFieldFocusLost
@@ -517,7 +517,7 @@ public class UserInterface extends javax.swing.JFrame {
             diameterContent = Double.parseDouble(df.format(diameterContent));
             diameterTextField.setText(Double.toString(diameterContent));
             
-            lengthTextField.requestFocus();
+            //lengthTextField.requestFocus();
             //if outside of our scope then display another error message
             if (diameterContent < 0.2 || diameterContent > 6) {
                 diameterTextField.setText("");
@@ -532,7 +532,7 @@ public class UserInterface extends javax.swing.JFrame {
             diameterLabel.setText("Diameter (Inches): ");
             JOptionPane.showMessageDialog(null,
                     "Numbers only please",
-                    "Bad input ",
+                    "Bad Diameter ",
                     JOptionPane.ERROR_MESSAGE);
         }
         //Complete order and add to basket are not activated or visible unless
@@ -551,7 +551,7 @@ public class UserInterface extends javax.swing.JFrame {
             lengthContent = Double.parseDouble(lengthTextField.getText());
             lengthContent = Double.parseDouble(df.format(lengthContent));
             lengthTextField.setText(Double.toString(lengthContent));
-            pGradeComboBox.requestFocusInWindow();
+            //pGradeComboBox.requestFocusInWindow();
             //validation
             if (lengthContent < 0.1 || lengthContent > 6.0) {
                 lengthTextField.setText("");
@@ -566,7 +566,7 @@ public class UserInterface extends javax.swing.JFrame {
             lengthLabel.setText("Length (Meters): ");
             JOptionPane.showMessageDialog(null,
                     "Numbers only please",
-                    "Bad input ",
+                    "Bad pipe length ",
                     JOptionPane.ERROR_MESSAGE);
         }
         //Complete order and add to basket are not activated or visible unless
@@ -598,7 +598,7 @@ public class UserInterface extends javax.swing.JFrame {
             quantityTextField.setText("1");
             JOptionPane.showMessageDialog(null,
                     "Numbers only please",
-                    "Bad input ",
+                    "Bad Quantity ",
                     JOptionPane.ERROR_MESSAGE);
         }
         
@@ -642,9 +642,14 @@ public class UserInterface extends javax.swing.JFrame {
         
         if(!colour1Content.equals("None")){
             colour += 1;
+        
+            if(!colour2Content.equals("None")){
+                colour += 1;
+            }
         }
-        if(!colour2Content.equals("None")){
-            colour += 1;
+        else if(!colour2Content.equals("None")){
+            //Prevents User from only selecting second colour
+            colour = 3;
         }
         return colour;
     }

@@ -12,14 +12,15 @@ package longpipescw;
 public class Type3 extends Pipe {
     private String colour1;
     private String colour2;
-    public Type3(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String colour2, double quantity){
+    private final double twoColourCost = 0.16;
+    public Type3(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, String colour1, String colour2, int quantity){
         //Obtain super class' information if Type3 is chosen
         super(lengthOfPipe, diameterOfPipe, grade, chemResist, quantity);
-        super.pipeDetails();
+        //super.pipeDetails();
         this.colour1 = colour1;
         this.colour2 = colour2;
         //add on another additional cost to the previously assigned additional cost
-        addAdditionalCost(0.16);
+        addAdditionalCost(twoColourCost);
     }
     //setter and getter for colour1
     public void setColour1(String colour1){
@@ -40,9 +41,10 @@ public class Type3 extends Pipe {
     
     //pipe details gets all the details from the super class and then adds our 
     //additional parameter of colour1
-    public String pipeDetails(){
-        super.pipeDetails += "Colour 1: " + colour1 + "\nColour 2: "+ colour2 + "\n";
+    public void pipeDetails(){
+        super.pipeDetails();
+        addPipeDetails("Colour 1: " + colour1 + "\nColour 2: "+ colour2 + "\n");
         //returns our new varibale content back to the super class
-        return super.pipeDetails;
+        //return super.pipeDetails;
     }
 }

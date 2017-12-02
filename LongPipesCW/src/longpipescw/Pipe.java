@@ -16,17 +16,17 @@ abstract public class Pipe {
     private double baseCost;
     private double additionalCost;
     private double totalCost;
-    protected String pipeDetails;
-    private int pipeType;
+    private String pipeDetails = "";
     private int grade;
-    private double quantity;
+    private int quantity;
     private Boolean chemResist;
+    private final double chemResistCost = 0.14;
     private final double[] gradeCost = {0.4, 0.6, 0.75, 0.8, 0.95};
     private DecimalFormat df = new DecimalFormat("###.##");
     
     
     //super class with parameters that each sub class all have in common
-    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, double quantity){
+    public Pipe(double lengthOfPipe, double diameterOfPipe, int grade, Boolean chemResist, int quantity){
         this.grade = grade;
         this.lengthOfPipe = lengthOfPipe;
         this.diameterOfPipe = diameterOfPipe;
@@ -52,11 +52,6 @@ abstract public class Pipe {
     public double getQuantity(){
         return quantity;
     }
-   
-    public int getPipeType()
-    {
-        return pipeType;
-    }
     
     public int getGrade()
     {
@@ -78,6 +73,13 @@ abstract public class Pipe {
         return chemResist;
     }
     
+    //Calls the relvant Pipe details class and returns the variable value
+    public String getPipeDetails()
+    {
+        pipeDetails();
+        return pipeDetails;
+    }
+    
     //setters
     public void setChemResist(Boolean chemResist)
     {
@@ -89,10 +91,18 @@ abstract public class Pipe {
         this.grade = grade;
     }
     
+    //adds Value to the additional pipe costs
     public void addAdditionalCost(double percent)
     {
         additionalCost += baseCost * percent;
     }
+    
+    //adds extra details to the pipe Details
+    public void addPipeDetails(String detail)
+    {
+        pipeDetails += detail;
+    }
+    
     //calculate the volume of the Pipe
     public double circleArea(double circleDiameter)
     {
@@ -111,9 +121,8 @@ abstract public class Pipe {
     //get the additional cost that each pipe will add to the base cost
     public double additionalCost(){
         //all pipes have chem resist in common so a first check will be required
-        System.out.println("This is infact used");
-        if(chemResist == true){
-            additionalCost += baseCost * 0.14;
+        if(chemResist){
+            additionalCost += baseCost * chemResistCost;
         }
         return additionalCost;
     }
@@ -134,12 +143,12 @@ abstract public class Pipe {
     }
     
     //getting all the details of the pipe that each sub class have in common
-    public String pipeDetails(){
-        pipeDetails = "Diameter of pipe: " + Double.toString(diameterOfPipe) + " (Inches)\n"
+    public void pipeDetails(){
+        addPipeDetails("Diameter of pipe: " + Double.toString(diameterOfPipe) + " (Inches)\n"
                 + "Length of pipe: " + Double.toString(lengthOfPipe) + " (Meters)\n"
                 + "Grade: " + Integer.toString(grade) + "\n"
-                + "Chemical Resistance: " + Boolean.toString(chemResist) + "\n";
-        return pipeDetails;
+                + "Chemical Resistance: " + Boolean.toString(chemResist) + "\n");
+        //return pipeDetails;
     }
         
    
