@@ -1,0 +1,17 @@
+Changelog
+
+- Converted all variables from protected to private.
+ + Added relevent setters and getters.
+ + Adjusted code to use setters and getters rather then the variable Directly.
+- Adjusted PipeDetails to Make the classes independent of the constructor.
+- Created function to count the colours in order to prevent repeated checks.
+ + Fixed bug where interface would accept the second colour without the first colour being selected.
+- Converted extra cost values into constants rather then plain text.
+- Changed variable "quantityContent" to a default value of 1 to fix focus loss issue.
+- Removed pipeType variable due to being redundant.
+- Changed the type detection IF statement to remove redundant checks (grade >= 1 etc.)
+- Changed all Quantity variables from Double to Int. (We were taking it in as an int anyway)
+
+Unfixed Bugs
+- Double Error box when changing from one textbox to another with an error within the first textbox.
+ +Error is confirmed to be caused from the change of focus to the "Ok" button within the error box.
