@@ -11,7 +11,6 @@ Changelog
 - Removed pipeType variable due to being redundant.
 - Changed the type detection IF statement to remove redundant checks (grade >= 1 etc.)
 - Changed all Quantity variables from Double to Int. (We were taking it in as an int anyway)
-
-Unfixed Bugs
-- Double Error box when changing from one textbox to another with an error within the first textbox.
- +Error is confirmed to be caused from the change of focus to the "Ok" button within the error box.
+- Changed Event Listener on textboxes from action preformed to Focus Lost.
+ + Fixed bug where the user could attempt to add invalid pipes to the basket.
+- Removed error boxes and replaced them with labels.
