@@ -74,6 +74,9 @@ public class UserInterface extends javax.swing.JFrame {
         colour1ComboBox = new javax.swing.JComboBox<>();
         colour1Label = new javax.swing.JLabel();
         addToBasketButton = new javax.swing.JButton();
+        diameterErrorLabel = new javax.swing.JLabel();
+        lengthErrorLabel = new javax.swing.JLabel();
+        quantityErrorLabel = new javax.swing.JLabel();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -82,6 +85,11 @@ public class UserInterface extends javax.swing.JFrame {
         diameterTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 diameterTextFieldFocusLost(evt);
+            }
+        });
+        diameterTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diameterTextFieldActionPerformed(evt);
             }
         });
 
@@ -153,6 +161,11 @@ public class UserInterface extends javax.swing.JFrame {
                 lengthTextFieldFocusLost(evt);
             }
         });
+        lengthTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lengthTextFieldActionPerformed(evt);
+            }
+        });
 
         cancelOrderButton.setText("Cancel Order");
         cancelOrderButton.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +199,15 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        diameterErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        diameterErrorLabel.setText(" ");
+
+        lengthErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        lengthErrorLabel.setText(" ");
+
+        quantityErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        quantityErrorLabel.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,6 +215,9 @@ public class UserInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(quantityErrorLabel)
+                    .addComponent(lengthErrorLabel)
+                    .addComponent(diameterErrorLabel)
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -245,11 +270,15 @@ public class UserInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diameterLabel)
                     .addComponent(diameterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addGap(2, 2, 2)
+                .addComponent(diameterErrorLabel)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lengthLabel)
                     .addComponent(lengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(2, 2, 2)
+                .addComponent(lengthErrorLabel)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pGradeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pGradeLabel))
@@ -277,13 +306,15 @@ public class UserInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quantityLabel)
                     .addComponent(quantityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(2, 2, 2)
+                .addComponent(quantityErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addToBasketButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(completeOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -347,36 +378,7 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_reinforcementComboBoxActionPerformed
 
     private void quantityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityTextFieldActionPerformed
-        //if the text field is empty the user will not be notified that they information
-        //has been saved with the tick
-        if(!quantityTextField.getText().equals("")){
-            quantityLabel.setText("Quantity: ✓");
-        } else {
-            quantityLabel.setText("Quantity: ");
-        }
-
-        try {
-            quantityContent = Integer.parseInt(quantityTextField.getText());
-            //validation
-            if (quantityContent < 1 || quantityContent > 100) {
-                quantityTextField.setText("1");
-                quantityContent = 1;
-                JOptionPane.showMessageDialog(null,
-                        "Orders must be of atleast 1 pipe and at most 100",
-                        "Bad Quantity ",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException nfe) {
-            quantityTextField.setText("1");
-            JOptionPane.showMessageDialog(null,
-                    "Numbers only please",
-                    "Bad input ",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        
-        //Complete order and add to basket are not activated or visible unless
-        //all the specified statments are true in the enableDisable method below
-        AddToBasketButtonOnOff();
+        diameterTextField.requestFocus();
     }//GEN-LAST:event_quantityTextFieldActionPerformed
                                               
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
@@ -510,6 +512,7 @@ public class UserInterface extends javax.swing.JFrame {
         } else {
             diameterLabel.setText("Diameter (inches): ✓");
         }
+        diameterErrorLabel.setText(" ");
         try {
             //convert our string to a double
             diameterContent = Double.parseDouble(diameterTextField.getText());
@@ -520,20 +523,24 @@ public class UserInterface extends javax.swing.JFrame {
             //lengthTextField.requestFocus();
             //if outside of our scope then display another error message
             if (diameterContent < 0.2 || diameterContent > 6) {
+                addToBasketButton.setEnabled(false);
                 diameterTextField.setText("");
                 diameterLabel.setText("Diameter (Inches): ");
-                JOptionPane.showMessageDialog(null,
+                /*JOptionPane.showMessageDialog(null,
                     "Orders must be between 0.2' and 6'",
                     "Bad Diameter ",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);*/
+                diameterErrorLabel.setText("Orders must be between 0.2' and 6'");
             }
         } catch (NumberFormatException nfe) {
+            addToBasketButton.setEnabled(false);
             diameterTextField.setText("");
             diameterLabel.setText("Diameter (Inches): ");
-            JOptionPane.showMessageDialog(null,
+            /*JOptionPane.showMessageDialog(null,
                     "Numbers only please",
                     "Bad Diameter ",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);*/
+            diameterErrorLabel.setText("Numbers only please");
         }
         //Complete order and add to basket are not activated or visible unless
         //all the specified statments are true in the enableDisable method below
@@ -546,6 +553,7 @@ public class UserInterface extends javax.swing.JFrame {
         } else {
             lengthLabel.setText("Length (Meters): ");
         }
+        lengthErrorLabel.setText(" ");
 
         try {
             lengthContent = Double.parseDouble(lengthTextField.getText());
@@ -554,20 +562,24 @@ public class UserInterface extends javax.swing.JFrame {
             //pGradeComboBox.requestFocusInWindow();
             //validation
             if (lengthContent < 0.1 || lengthContent > 6.0) {
+                addToBasketButton.setEnabled(false);
                 lengthTextField.setText("");
                 lengthLabel.setText("Length (Meters): ");
-                JOptionPane.showMessageDialog(null,
+                /*JOptionPane.showMessageDialog(null,
                     "pipes must be between 10cm and 6m",
                     "Bad pipe length ",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);*/
+                lengthErrorLabel.setText("pipes must be between 10cm and 6m");
             }
         } catch (NumberFormatException nfe) {
+            addToBasketButton.setEnabled(false);
             lengthTextField.setText("");
             lengthLabel.setText("Length (Meters): ");
-            JOptionPane.showMessageDialog(null,
+            /*JOptionPane.showMessageDialog(null,
                     "Numbers only please",
                     "Bad pipe length ",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);*/
+            lengthErrorLabel.setText("Numbers only please");
         }
         //Complete order and add to basket are not activated or visible unless
         //all the specified statments are true in the enableDisable method below
@@ -582,30 +594,43 @@ public class UserInterface extends javax.swing.JFrame {
         } else {
             quantityLabel.setText("Quantity: ");
         }
+        quantityErrorLabel.setText(" ");
 
         try {
             quantityContent = Integer.parseInt(quantityTextField.getText());
             //validation
             if (quantityContent < 1 || quantityContent > 100) {
+                addToBasketButton.setEnabled(false);
                 quantityTextField.setText("1");
                 quantityContent = 1;
-                JOptionPane.showMessageDialog(null,
+                /*JOptionPane.showMessageDialog(null,
                         "Orders must be of atleast 1 pipe and at most 100",
                         "Bad Quantity ",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE);*/
+                quantityErrorLabel.setText("Orders must be between 1 pipe and 100 pipes");
             }
         } catch (NumberFormatException nfe) {
+            addToBasketButton.setEnabled(false);
             quantityTextField.setText("1");
-            JOptionPane.showMessageDialog(null,
+            /*JOptionPane.showMessageDialog(null,
                     "Numbers only please",
                     "Bad Quantity ",
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);*/
+            quantityErrorLabel.setText("Numbers only please");
         }
         
         //Complete order and add to basket are not activated or visible unless
         //all the specified statments are true in the enableDisable method below
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_quantityTextFieldFocusLost
+
+    private void diameterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diameterTextFieldActionPerformed
+        lengthTextField.requestFocus();
+    }//GEN-LAST:event_diameterTextFieldActionPerformed
+
+    private void lengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lengthTextFieldActionPerformed
+        pGradeComboBox.requestFocus();
+    }//GEN-LAST:event_lengthTextFieldActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -617,16 +642,19 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> colour2ComboBox;
     private javax.swing.JLabel colour2Label;
     private javax.swing.JButton completeOrderButton;
+    private javax.swing.JLabel diameterErrorLabel;
     private javax.swing.JLabel diameterLabel;
     private javax.swing.JTextField diameterTextField;
     private javax.swing.JComboBox<String> insulationComboBox;
     private javax.swing.JLabel insulationLabel;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lengthErrorLabel;
     private javax.swing.JLabel lengthLabel;
     private javax.swing.JTextField lengthTextField;
     private javax.swing.JComboBox<String> pGradeComboBox;
     private javax.swing.JLabel pGradeLabel;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JLabel quantityErrorLabel;
     private javax.swing.JLabel quantityLabel;
     private javax.swing.JTextField quantityTextField;
     private javax.swing.JComboBox<String> reinforcementComboBox;
