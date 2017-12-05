@@ -360,7 +360,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="addToBasketButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add To Basket"/>
+        <Property name="text" type="java.lang.String" value="Add Another Order"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToBasketButtonActionPerformed"/>

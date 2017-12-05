@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package longpipescw;
 
 //import java.awt.event.KeyEvent;
@@ -12,12 +7,14 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- *
- * @author conorfarrell
+ * The User Interface in which Takes and validates the Users Input before using
+ * it to create a new Pipe.
+ * @author GrD-10
+ * @version 2.4
  */
 public class UserInterface extends javax.swing.JFrame {
     //initialise all variables used before the interface is interacted with
-    protected ArrayList<Pipe> order = new ArrayList<Pipe>();
+    private ArrayList<Pipe> order = new ArrayList<Pipe>();
     private double diameterContent = 0;
     private double lengthContent = 0;
     private int gradeContent = 0;
@@ -29,7 +26,7 @@ public class UserInterface extends javax.swing.JFrame {
     private Boolean outerReinforcementContent = false;
     private final DecimalFormat df = new DecimalFormat("###.##");
     /**
-     * Creates new form NewJFrame
+     * Creates input Form.
      */
     public UserInterface() {
         initComponents();
@@ -192,7 +189,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         colour1Label.setText("Colour 1:");
 
-        addToBasketButton.setText("Add To Basket");
+        addToBasketButton.setText("Add Another Order");
         addToBasketButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToBasketButtonActionPerformed(evt);
@@ -341,7 +338,11 @@ public class UserInterface extends javax.swing.JFrame {
         //colour1ComboBox.requestFocusInWindow();
     }//GEN-LAST:event_pGradeComboBoxActionPerformed
                                            
-
+/**
+ * Changes the value of the Variable "innerInsulationContent" to match the new
+ * value of the combo Box.
+ * @param evt Action Performed.
+ */
     private void insulationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insulationComboBoxActionPerformed
         if (insulationComboBox.getSelectedItem() == "No") {
             innerInsulationContent = false;
@@ -353,6 +354,11 @@ public class UserInterface extends javax.swing.JFrame {
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_insulationComboBoxActionPerformed
 
+    /**
+     * Changes the value of the Variable "colour2Content" to match the new
+     * value of the combo Box.
+     * @param evt Action Performed.
+     */
     private void colour2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colour2ComboBoxActionPerformed
         //if the selected item equals "None" the set the varaibles back to their 
         //initial state.
@@ -365,7 +371,12 @@ public class UserInterface extends javax.swing.JFrame {
         //get our selected item from our combo box and convert to a string
         colour2Content = (String)colour2ComboBox.getSelectedItem();
     }//GEN-LAST:event_colour2ComboBoxActionPerformed
-                                              
+           
+    /**
+     * Changes the value of the Variable "outerReinforcementContent" to match 
+     * the new value of the combo Box.
+     * @param evt Action Performed.
+     */
     private void reinforcementComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reinforcementComboBoxActionPerformed
         if (reinforcementComboBox.getSelectedItem() == "No") {
             outerReinforcementContent = false;
@@ -377,10 +388,18 @@ public class UserInterface extends javax.swing.JFrame {
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_reinforcementComboBoxActionPerformed
 
+    /**
+     * Sets Focus to Next Input Box.
+     * @param evt Action Performed.
+     */
     private void quantityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityTextFieldActionPerformed
         diameterTextField.requestFocus();
     }//GEN-LAST:event_quantityTextFieldActionPerformed
-                                              
+                
+    /**
+     * Creates a new Quote and makes it Visible. (also hides the Input Form)
+     * @param evt Action Performed.
+     */
     private void completeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderButtonActionPerformed
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -395,27 +414,37 @@ public class UserInterface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         //display the invoice pop up if the user clicks complete order.
         //the order ArrayList is passed so that this class is now able to access
         //the object set in this class
-        new Invoice(order).setVisible(true);
+        new Quote(order).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_completeOrderButtonActionPerformed
 
+    /**
+     * Closes Input Form.
+     * @param evt Action Performed.
+     */
     private void cancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelOrderButtonActionPerformed
         //exit the window if a user presses cancel
         System.exit(0);
     }//GEN-LAST:event_cancelOrderButtonActionPerformed
 
+    /**
+     * Changes the value of the Variable "chemResistContent" to match 
+     * the new value of the combo Box.
+     * @param evt Action Performed.
+     */
     private void resistanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resistanceComboBoxActionPerformed
         //if the selected item equals "No" the set the varaibles back to their 
         //initial state.
@@ -433,7 +462,11 @@ public class UserInterface extends javax.swing.JFrame {
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_resistanceComboBoxActionPerformed
                                                   
-
+    /**
+     * Changes the value of the Variable "colour1Content" to match 
+     * the new value of the combo Box.
+     * @param evt Action Performed.
+     */
     private void colour1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colour1ComboBoxActionPerformed
         if (colour1ComboBox.getSelectedItem() == "None") {
             colour1Content = "None";
@@ -446,6 +479,11 @@ public class UserInterface extends javax.swing.JFrame {
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_colour1ComboBoxActionPerformed
 
+    /**
+     * Validates the pipe and sorts it into the Correct Type. Displays an Error
+     * Message for invalid Pipes.
+     * @param evt Action Performed.
+     */
     private void addToBasketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToBasketButtonActionPerformed
         int colours = checkColours();
         Boolean goodPipe = true;
@@ -501,6 +539,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addToBasketButtonActionPerformed
     
+    /**
+     * Changes the value of the Variable "diameterContent" to match 
+     * the new value of the text Box.
+     * @param evt Focus Lost.
+     */
     private void diameterTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diameterTextFieldFocusLost
         //if interacted with and does not equal and empty string add a tick
         //this shows the user that what they have entered is correct
@@ -522,15 +565,20 @@ public class UserInterface extends javax.swing.JFrame {
             
             //lengthTextField.requestFocus();
             //if outside of our scope then display another error message
-            if (diameterContent < 0.2 || diameterContent > 6) {
+            if (diameterContent < 0.1 || diameterContent > 6) {
                 addToBasketButton.setEnabled(false);
                 diameterTextField.setText("");
                 diameterLabel.setText("Diameter (Inches): ");
                 /*JOptionPane.showMessageDialog(null,
-                    "Orders must be between 0.2' and 6'",
+                    "Orders must be between 0.1' and 6'",
                     "Bad Diameter ",
                     JOptionPane.ERROR_MESSAGE);*/
                 diameterErrorLabel.setText("Orders must be between 0.2' and 6'");
+                diameterContent = 0;
+            } else {
+                //Complete order and add to basket are not activated or visible unless
+                //all the specified statments are true in the enableDisable method below
+                AddToBasketButtonOnOff();
             }
         } catch (NumberFormatException nfe) {
             addToBasketButton.setEnabled(false);
@@ -542,11 +590,13 @@ public class UserInterface extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);*/
             diameterErrorLabel.setText("Numbers only please");
         }
-        //Complete order and add to basket are not activated or visible unless
-        //all the specified statments are true in the enableDisable method below
-        AddToBasketButtonOnOff();
     }//GEN-LAST:event_diameterTextFieldFocusLost
 
+    /**
+     * Changes the value of the Variable "lengthContent" to match 
+     * the new value of the text Box.
+     * @param evt Focus Lost.
+     */
     private void lengthTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lengthTextFieldFocusLost
         if (!lengthTextField.getText().equals("")) {
             lengthLabel.setText("Length (Meters): ✓");
@@ -570,6 +620,11 @@ public class UserInterface extends javax.swing.JFrame {
                     "Bad pipe length ",
                     JOptionPane.ERROR_MESSAGE);*/
                 lengthErrorLabel.setText("pipes must be between 10cm and 6m");
+                lengthContent = 0;
+            } else {
+                //Complete order and add to basket are not activated or visible unless
+                //all the specified statments are true in the enableDisable method below
+                AddToBasketButtonOnOff();
             }
         } catch (NumberFormatException nfe) {
             addToBasketButton.setEnabled(false);
@@ -583,9 +638,13 @@ public class UserInterface extends javax.swing.JFrame {
         }
         //Complete order and add to basket are not activated or visible unless
         //all the specified statments are true in the enableDisable method below
-        AddToBasketButtonOnOff();
     }//GEN-LAST:event_lengthTextFieldFocusLost
 
+    /**
+     * Changes the value of the Variable "quantityContent" to match 
+     * the new value of the text Box.
+     * @param evt Focus Lost.
+     */
     private void quantityTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantityTextFieldFocusLost
         //if the text field is empty the user will not be notified that they information
         //has been saved with the tick
@@ -607,7 +666,7 @@ public class UserInterface extends javax.swing.JFrame {
                         "Orders must be of atleast 1 pipe and at most 100",
                         "Bad Quantity ",
                         JOptionPane.ERROR_MESSAGE);*/
-                quantityErrorLabel.setText("Orders must be between 1 pipe and 100 pipes");
+                quantityErrorLabel.setText("Orders must be between 1 and 100");
             }
         } catch (NumberFormatException nfe) {
             addToBasketButton.setEnabled(false);
@@ -618,16 +677,23 @@ public class UserInterface extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);*/
             quantityErrorLabel.setText("Numbers only please");
         }
-        
         //Complete order and add to basket are not activated or visible unless
         //all the specified statments are true in the enableDisable method below
         AddToBasketButtonOnOff();
     }//GEN-LAST:event_quantityTextFieldFocusLost
 
+    /**
+     * Sets Focus to Next Input Box.
+     * @param evt Action Performed.
+     */
     private void diameterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diameterTextFieldActionPerformed
         lengthTextField.requestFocus();
     }//GEN-LAST:event_diameterTextFieldActionPerformed
 
+    /**
+     * Sets Focus to Next Input Box.
+     * @param evt Action Performed.
+     */
     private void lengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lengthTextFieldActionPerformed
         pGradeComboBox.requestFocus();
     }//GEN-LAST:event_lengthTextFieldActionPerformed
@@ -664,6 +730,11 @@ public class UserInterface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Error Handling
+    /**
+     * Calculates how many colours the user selected. Returns 3 if only 
+     * colour2Content is used.
+     * @return 
+     */
     public int checkColours(){
         //Added to prevent multiple checks of the value of each combo box
         int colour = 0;
@@ -682,7 +753,10 @@ public class UserInterface extends javax.swing.JFrame {
         return colour;
     }
     
-    
+    /**
+     * Attempts to Diagnose an invalid pipe and guide the user to select valid
+     * options.
+     */
     public void typeErrorFinder() {
         
         if (gradeContent == 4 || gradeContent == 5 && colour1Content.equals("None")
@@ -709,6 +783,12 @@ public class UserInterface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,
                     "The options you selected do not come with that grade of plastic please select between grade 3 - 5",
                     "Bad grade ",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if ((colour1Content.equals("None") && colour2Content.equals(
+                "None")) && (innerInsulationContent || outerReinforcementContent)) {
+            JOptionPane.showMessageDialog(null,
+                    "The options you selected need coloured pipes please select colour 1 and 2 ",
+                    "Bad colour ",
                     JOptionPane.WARNING_MESSAGE);
         } else if (colour1Content.equals("None")) {
             JOptionPane.showMessageDialog(null,
@@ -741,6 +821,10 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Enables or disables the AddToBasket Button depending on if the valid
+     * Fields are filled.
+     */
     public void AddToBasketButtonOnOff() {
         if (diameterContent != 0 && lengthContent != 0
                 && gradeContent != 0 && quantityContent != 0) {
@@ -750,10 +834,12 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
-    //Clear content fucntionality sets all items to their initial states
-    //Quantity and chem resist are not reset because they are going to always 
-    //be added to or kept the same. Note: this is done to let a user understand
-    // their order has been added
+    /**
+     * Clear content functionality sets all items to their initial states
+     * Quantity and chemResist are not reset because they are going to always
+     * be added to or kept the same. Note: this is done to let a user understand
+     * their order has been added
+     */
     public void clearContent() {
         diameterTextField.setText("");
         diameterLabel.setText("Diameter (Inches): ");
